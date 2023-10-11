@@ -1,34 +1,34 @@
 use bevy::math::{Rect, Vec2};
-use crate::hex_grid::{HexGrid, Pos};
+use crate::hex_grid::{HexGrid};
 
-impl <T> Pos<T> {
-    pub fn phys_center<UT>(&self, hg: &HexGrid<UT>) -> Vec2 {
-        self.phys_min(hg) + self.phys_size(hg) / 2.0
+impl <T> HexGrid<T> {
+    pub fn pos_center(&self, x: u16, y: u16) -> Vec2 {
+        self.pos_min(x,y) + self.pos_size() / 2.0
     }
     
-    pub fn phys_min<UT>(&self, hg: &HexGrid<UT>) -> Vec2 {
-        let x = self.x as f32 * hg.physical_size.width() / hg.width as f32;
-        let mut y = self.y as f32 * hg.physical_size.height() / hg.height as f32;
-        if self.x % 2 == 1 {
-            y += hg.physical_size.height() / hg.height as f32 / 2.0;
+    pub fn pos_min(&self, in_x: u16, in_y: u16) -> Vec2 {
+        let x = in_x as f32 * self.physical_size.width() / self.width as f32 + self.physical_size.min.x;
+        let mut y = in_y as f32 * self.physical_size.height() / self.height as f32 + self.physical_size.min.y;
+        if in_x % 2 == 1 {
+            y += self.physical_size.height() / self.height as f32 / 2.0;
         }
 
         Vec2::new(x, y)
     }
     
-    pub fn phys_max<UT>(&self, hg: &HexGrid<UT>) -> Vec2 {
-        self.phys_min(hg) + self.phys_size(hg)
+    pub fn pos_max(&self, x: u16, y: u16) -> Vec2 {
+        self.pos_min(x,y) + self.pos_size()
     }
 
-    pub fn phys_size<UT>(&self, hg: &HexGrid<UT>) -> Vec2 {
+    pub fn pos_size(&self) -> Vec2 {
         // get size of the hexagon
-        let width = hg.physical_size.width() / hg.width as f32;
-        let height = hg.physical_size.height() / hg.height as f32;
+        let width = self.physical_size.width() / self.width as f32;
+        let height = self.physical_size.height() / self.height as f32;
         
         Vec2::new(width, height)
     }
 
-    pub fn phys_rect<UT>(&self, hg: &HexGrid<UT>) -> Rect {
-        Rect::from_corners(self.phys_min(hg), self.phys_max(hg))
+    pub fn pos_rect(&self, x: u16, y: u16) -> Rect {
+        Rect::from_corners(self.pos_min(x,y), self.pos_max(x,y))
     }
 }

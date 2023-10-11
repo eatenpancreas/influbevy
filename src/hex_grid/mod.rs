@@ -5,12 +5,12 @@ pub use self::pos::*;
 pub use self::pos_phys::*;
 
 use std::io::{Error, ErrorKind};
-use bevy::math::{Rect, Vec2};
+use bevy::math::{Rect};
 
 
 #[derive(Debug)]
 pub struct HexGrid<T> {
-    fields: Vec<Pos<T>>,
+    pub fields: Vec<Pos<T>>,
     pub height: u16,
     pub width: u16,
     pub physical_size: Rect,
@@ -38,9 +38,7 @@ impl <T> HexGrid<T> {
             let y = i / width;
             
             grid.fields.push(
-                Pos {
-                    x, y, t,
-                }
+                Pos::new(x, y, t)
             );
             
             i += 1;
@@ -54,11 +52,7 @@ impl <T> HexGrid<T> {
         for y in 0..height {
             for x in 0..width {
                 grid.fields.push(
-                    Pos {
-                        x: x as u16,
-                        y: y as u16,
-                        t: None,
-                    }
+                    Pos::new(x as u16, y as u16, None)
                 );
             }
         }
@@ -71,12 +65,18 @@ impl <T> HexGrid<T> {
         self.fields.get(i as usize)
     }
     
+    pub fn get_mut(&mut self, x: u16, y: u16) -> Option<&mut Pos<T>> {
+        if x >= self.width || y >= self.height { return None }
+        let i = x + y * self.width;
+        self.fields.get_mut(i as usize)
+    }
+    
     pub fn set(&mut self, x: u16, y: u16, t: T) {
         let i = x + y * self.width;
         self.fields[i as usize].t = t;
     }
     
-    pub fn iter(&mut self) -> std::slice::IterMut<Pos<T>> {
+    pub fn iter_mut(&mut self) -> std::slice::IterMut<Pos<T>> {
         self.fields.iter_mut()
     }
     
@@ -91,5 +91,9 @@ impl <T> HexGrid<T> {
     
     pub fn resize(&mut self, new_size: Rect) {
         self.physical_size = new_size;
+    }
+    
+    pub fn size_t(&self) -> (u16, u16) {
+        (self.width, self.height)
     }
 }

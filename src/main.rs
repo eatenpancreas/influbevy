@@ -3,7 +3,6 @@ mod hex_grid;
 mod tests;
 
 use bevy::math::vec3;
-//#![windows_subsystem = "windows"]
 use bevy::prelude::*;
 use bevy::window::close_on_esc;
 use hex_grid::HexGrid;
@@ -14,7 +13,7 @@ struct Grid(HexGrid<Option<Entity>>);
 fn main() {
     let hg = HexGrid::new_empty(
         10, 10, 
-        Rect::new(0.0, 0.0, 1000.0, 1000.0)
+        Rect::new(-500.0, -300.0, 500.0, 300.0)
     );
     
     App::new()
@@ -30,27 +29,32 @@ fn populate(
     mut grid: ResMut<Grid>
 ) {
     commands.spawn(Camera2dBundle::default());
+
+    let (width, height) = grid.0.size_t();
+    let size = grid.0.pos_size();
     
-    for mut pos in grid.0.iter() {
-        let (x, y) = pos.phys_center(&grid.0).into();
-        let size = pos.phys_size(&grid.0);
-        
-        let bundle = (
-            SpriteBundle {
-                transform: Transform {
-                    translation: vec3(x, y, 0.),
+    for xx in 0..width {
+        for yy in 0..height {
+            let (x, y) = grid.0.pos_center(xx, yy).into();
+
+            let bundle = (
+                SpriteBundle {
+                    transform: Transform {
+                        translation: vec3(x, y, 0.),
+                        ..default()
+                    },
+                    sprite: Sprite {
+                        color: Color::rgb(0.3, 0.1, 0.3),
+                        custom_size: Some(size),
+                        ..default()
+                    },
                     ..default()
                 },
-                sprite: Sprite {
-                    color: Color::rgb(0.3, 0.1, 0.3),
-                    custom_size: Some(size),
-                    ..default()
-                },
-                ..default()
-            },
-        );
-        
-        pos.set(Some(commands.spawn(bundle).id()));
+            );
+
+            let pos = grid.0.get_mut(xx, yy).unwrap();
+            pos.set(Some(commands.spawn(bundle).id()));
+        }
     }
 }
 
