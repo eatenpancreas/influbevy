@@ -31,27 +31,28 @@ fn populate(
 ) {
     commands.spawn(Camera2dBundle::default());
     
-    for mut pos in grid.0.iter() {
-        let (x, y) = pos.phys_center(&grid.0).into();
-        let size = pos.phys_size(&grid.0);
-        
-        let bundle = (
-            SpriteBundle {
-                transform: Transform {
-                    translation: vec3(x, y, 0.),
-                    ..default()
-                },
-                sprite: Sprite {
-                    color: Color::rgb(0.3, 0.1, 0.3),
-                    custom_size: Some(size),
-                    ..default()
-                },
-                ..default()
-            },
-        );
-        
-        pos.set(Some(commands.spawn(bundle).id()));
-    }
+    todo!("parental issues")
+    // for mut pos in grid.0.iter() {
+    //     let (x, y) = pos.phys_center(&grid.0).into();
+    //     let size = pos.phys_size(&grid.0);
+    //     
+    //     let bundle = (
+    //         SpriteBundle {
+    //             transform: Transform {
+    //                 translation: vec3(x, y, 0.),
+    //                 ..default()
+    //             },
+    //             sprite: Sprite {
+    //                 color: Color::rgb(0.3, 0.1, 0.3),
+    //                 custom_size: Some(size),
+    //                 ..default()
+    //             },
+    //             ..default()
+    //         },
+    //     );
+    //     
+    //     pos.set(Some(commands.spawn(bundle).id()));
+    // }
 }
 
 fn display() {
