@@ -5,7 +5,7 @@ use crate::hex_grid::HexGrid;
 pub fn hex_grid_pos_test() {
     let hg = HexGrid::<u8>::new_empty(
         10, 10,
-        Rect::new(-500.0, -300.0, 500.0, 300.0)
+        Rect::new(-500.0, -300.0, 500.0, 300.0), 0.0,
     );
 
 

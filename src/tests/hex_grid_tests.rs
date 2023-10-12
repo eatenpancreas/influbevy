@@ -5,9 +5,9 @@ use crate::hex_grid::HexGrid;
 pub fn hex_grid_test() {
     let size = Rect::new(0., 0., 1., 1.);
     
-    let h = HexGrid::new(2, 2, size, vec![1, 1, 1, 1]).unwrap();
-    let h1 = HexGrid::new(2, 4, size, vec![1, 1, 1, 1]);
-    let h2 = HexGrid::<f32>::new(0, 0, size, vec![]);
+    let h = HexGrid::new(2, 2, size, 0.0,vec![1, 1, 1, 1]).unwrap();
+    let h1 = HexGrid::new(2, 4, size,0.0, vec![1, 1, 1, 1]);
+    let h2 = HexGrid::<f32>::new(0, 0, size,0.0, vec![]);
 
     assert_eq!(h.get(0, 0).unwrap().t, 1);
     assert!(h.get(0, 2).is_none());
@@ -20,7 +20,7 @@ pub fn hex_grid_test() {
 #[test]
 pub fn hex_grid_test_empty() {
     let size = Rect::new(0., 0., 1., 1.);
-    let mut empty = HexGrid::<u8>::new_empty(2, 3, size);
+    let mut empty = HexGrid::<u8>::new_empty(2, 3, size, 0.0,);
     
     assert!(empty.get(0, 0).unwrap().t.is_none());
     assert!(empty.get(4, 3).is_none());
@@ -36,7 +36,7 @@ pub fn hex_grid_test_empty() {
 #[test]
 pub fn hex_grid_test_neigh() {
     let size = Rect::new(0., 0., 1., 1.);
-    let empty = HexGrid::<u8>::new_empty(4, 3, size);
+    let empty = HexGrid::<u8>::new_empty(4, 3, size, 0.0,);
     let n = empty.get(1, 1).unwrap().get_neighbors(&empty);
     let n2 = empty.get(2, 0).unwrap().get_neighbors(&empty);
     let n3 = empty.get(0, 2).unwrap().get_neighbors(&empty);

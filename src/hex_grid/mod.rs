@@ -14,10 +14,11 @@ pub struct HexGrid<T> {
     pub height: u16,
     pub width: u16,
     pub physical_size: Rect,
+    pub hex_slope_pct: f32,
 }
 
 impl <T> HexGrid<T> {
-    pub fn new(width: u16, height: u16, physical_size: Rect, mut old_fields: Vec<T>) -> Result<HexGrid<T>, Error> {
+    pub fn new(width: u16, height: u16, physical_size: Rect, hex_slope_pct: f32, mut old_fields: Vec<T>) -> Result<HexGrid<T>, Error> {
         if width == 0 || height == 0 {
             return Err(Error::new(
                 ErrorKind::InvalidInput, 
@@ -32,7 +33,7 @@ impl <T> HexGrid<T> {
         }
 
         let mut i = 0;
-        let mut grid = HexGrid { fields: vec![], width, height, physical_size };
+        let mut grid = HexGrid { fields: vec![], width, height, physical_size, hex_slope_pct };
         while let Some(t) = old_fields.pop() {
             let x = i % width;
             let y = i / width;
@@ -47,8 +48,8 @@ impl <T> HexGrid<T> {
         Ok(grid)
     }
     
-    pub fn new_empty(width: i16, height: i16, physical_size: Rect) -> HexGrid<Option<T>> {
-        let mut grid = HexGrid { fields: vec![], width: width as u16, height: height as u16, physical_size };
+    pub fn new_empty(width: i16, height: i16, physical_size: Rect, hex_slope_pct: f32) -> HexGrid<Option<T>> {
+        let mut grid = HexGrid { fields: vec![], width: width as u16, height: height as u16, physical_size, hex_slope_pct };
         for y in 0..height {
             for x in 0..width {
                 grid.fields.push(
