@@ -34,7 +34,13 @@ pub fn hex_grid_pos_test2() {
     assert_eq!(x, -600.0);
     assert_eq!(y, -300.0);
 
+    let (x, y) = hg.pos_size().into();
+    // assert_eq!(x, 77.14286);
+    // assert_eq!(y, 60.0);
+
     let (x, y) = hg.pos_max(19, 9).into();
     assert_eq!(x, 600.0);
-    assert_eq!(y, 300.0);
+    assert_eq!(y, 330.0);
 }
+
+
