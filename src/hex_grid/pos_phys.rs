@@ -13,14 +13,14 @@ impl <T> HexGrid<T> {
         (self.physical_size.width() * (1.0 + self.hex_slope_pct)) / self.width as f32
     }
     
-    pub fn pos_min(&self, in_x: u16, in_y: u16) -> Vec2 {
-        let x = in_x as f32 * (self._hex_width() * (1.0 - self.hex_slope_pct)) + self.physical_size.min.x;
-        let mut y = in_y as f32 * self._hex_height() + self.physical_size.min.y;
-        if in_x % 2 == 1 {
-            y += self.physical_size.height() / self.height as f32 / 2.0;
+    pub fn pos_min(&self, x: u16, y: u16) -> Vec2 {
+        let fx = x as f32 * (self._hex_width() * (1.0 - self.hex_slope_pct)) + self.physical_size.min.x;
+        let mut fy = y as f32 * self._hex_height() + self.physical_size.min.y;
+        if x % 2 == 1 {
+            fy += self._hex_height() / 2.0;
         }
 
-        Vec2::new(x, y)
+        Vec2::new(fx, fy)
     }
     
     pub fn pos_max(&self, x: u16, y: u16) -> Vec2 {

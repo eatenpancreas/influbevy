@@ -13,8 +13,8 @@ struct Grid(HexGrid<Option<Entity>>);
 
 fn main() {
     let hg = HexGrid::new_empty(
-        10, 10, 
-        Rect::new(-500.0, -300.0, 500.0, 300.0),
+        20, 10, 
+        Rect::new(-600.0, -300.0, 600.0, 300.0),
         0.28571428571428573
     );
     
@@ -35,7 +35,7 @@ fn populate(
 
     let (width, height) = grid.0.size_t();
     let size = grid.0.pos_size();
-    let texture = asset_server.load("sprites/hex/hex1.png");
+    let texture = asset_server.load("sprites/hex/hex2.png");
     let rng = &mut rand::thread_rng();
         
     for xx in 0..width {

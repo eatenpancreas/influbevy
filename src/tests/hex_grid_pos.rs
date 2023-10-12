@@ -21,3 +21,20 @@ pub fn hex_grid_pos_test() {
     assert_eq!(x, -450.0);
     assert_eq!(y, -270.0);
 }
+
+
+#[test]
+pub fn hex_grid_pos_test2() {
+    let hg = HexGrid::<u8>::new_empty(
+        20, 10,
+        Rect::new(-600.0, -300.0, 600.0, 300.0), 0.28571428571428573,
+    );
+
+    let (x, y) = hg.pos_min(0, 0).into();
+    assert_eq!(x, -600.0);
+    assert_eq!(y, -300.0);
+
+    let (x, y) = hg.pos_max(19, 9).into();
+    assert_eq!(x, 600.0);
+    assert_eq!(y, 300.0);
+}
