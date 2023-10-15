@@ -1,4 +1,4 @@
-use crate::hex_grid::HexGrid;
+use crate::lib::hex_grid::HexGrid;
 
 const U16_MAX_AS_I32: i32 = u16::MAX as i32;
 

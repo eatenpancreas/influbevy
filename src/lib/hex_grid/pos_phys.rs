@@ -1,5 +1,5 @@
 use bevy::math::{Rect, Vec2};
-use crate::hex_grid::{HexGrid, Pos};
+use crate::lib::hex_grid::{HexGrid};
 
 impl <T> HexGrid<T> {
     pub fn pos_center(&self, x: u16, y: u16) -> Vec2 {
