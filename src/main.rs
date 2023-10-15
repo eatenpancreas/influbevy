@@ -1,10 +1,10 @@
 #[cfg(test)]
 mod tests;
 mod setup;
-mod mouse_in;
 mod lib;
 mod owners;
 mod inputs;
+mod ui;
 
 use bevy::prelude::*;
 use bevy::window::{close_on_esc};
@@ -39,7 +39,7 @@ fn main() {
             setup::populate_grid
         ))
         .add_systems(Update, (
-            mouse_in::button_inputs, 
+            inputs::click_province, 
             close_on_esc
         ))
         .run();

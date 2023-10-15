@@ -3,7 +3,7 @@ use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 use crate::{Grid, MainCamera};
 
-pub(crate) fn button_inputs(
+pub(crate) fn click_province(
     buttons: Res<Input<MouseButton>>,
     mut grid: ResMut<Grid>,
     mut sprite_query: Query<&mut Sprite>,
