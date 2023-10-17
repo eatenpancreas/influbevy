@@ -7,6 +7,7 @@ pub use self::pos_phys::*;
 use std::io::{Error, ErrorKind};
 use bevy::math::{Rect};
 
+const U16_MAX_AS_I32: i32 = u16::MAX as i32;
 
 #[derive(Debug)]
 pub struct HexGrid<T> {
@@ -70,6 +71,37 @@ impl <T> HexGrid<T> {
         if x >= self.width || y >= self.height { return None }
         let i = x + y * self.width;
         self.fields.get_mut(i as usize)
+    }
+    
+    pub fn get_neighbours(&self, x: u16, y: u16) -> Vec<&Pos<T>> {
+        let mut neighbors = vec![];
+        neighbors.extend(self.dir(-1, 0, x, y));
+        neighbors.extend(self.dir(1, 0, x, y));
+        neighbors.extend(self.dir(0, -1, x, y));
+        neighbors.extend(self.dir(0, 1, x, y));
+
+        if x % 2 == 1 {
+            neighbors.extend(self.dir(-1, 1, x, y));
+            neighbors.extend(self.dir(1, 1, x, y));
+        } else {
+            neighbors.extend(self.dir(-1, -1, x, y));
+            neighbors.extend(self.dir(1, -1, x, y));
+        }
+
+        neighbors
+    }
+
+    fn dir(&self, dir_x: i32, dir_y: i32, x: u16, y: u16) -> Option<&Pos<T>> {
+        let curr_x = x as i32;
+        let curr_y = y as i32;
+
+        if curr_x + dir_x < 0 || curr_x + dir_x >= U16_MAX_AS_I32 {
+            return None
+        } else if curr_y+ dir_y < 0 || curr_y + dir_y >= U16_MAX_AS_I32 {
+            return None
+        }
+
+        self.get((curr_x + dir_x) as u16, (curr_y + dir_y) as u16)
     }
     
     pub fn set(&mut self, x: u16, y: u16, t: T) {

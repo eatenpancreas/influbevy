@@ -1,28 +1,33 @@
 use bevy::math::vec3;
 use bevy::prelude::*;
-use rand::Rng;
 use crate::{Grid, Tile};
+use crate::owners::Owner;
 
 pub(crate) fn populate_grid(
     mut commands: Commands,
     mut grid: ResMut<Grid>,
-    asset_server: Res<AssetServer>
+    asset_server: Res<AssetServer>,
+    owners: Query<(Entity, &Owner)>
 ) {
     let (width, height) = grid.0.size_t();
     let size = grid.0.pos_size();
     let texture = asset_server.load("sprites/hex/hex1.png");
     let texture2 = asset_server.load("sprites/hex/hex2.png");
-    let rng = &mut rand::thread_rng();
 
     for xx in 0..width {
         for yy in 0..height {
             let (x, y) = grid.0.pos_center(xx, yy).into();
-            let color = Color::rgb(
-                rng.gen_range(0.2..1.),
-                rng.gen_range(0.2..1.),
-                rng.gen_range(0.2..1.)
-            );
-
+            let (entity_owner, owner) = match owners.iter().find(|(_, o)| o.starting_pos == (xx, yy)) {
+                None => (None, None),
+                Some((e, o)) => (Some(e), Some(o))
+            };
+            
+            
+            let color = match owner {
+                None => Color::rgb(0.1, 0.1, 0.1),
+                Some(o) => o.col
+            };
+            
             let bundle = (
                 SpriteBundle {
                     transform: Transform {
@@ -52,7 +57,7 @@ pub(crate) fn populate_grid(
             pos.set(Some(Tile {
                 entity: commands.spawn(bundle).id(),
                 inner_entity: commands.spawn(bundle2).id(),
-                owner: None,
+                owner: entity_owner,
             }));
         }
     }
