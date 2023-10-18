@@ -20,7 +20,7 @@ pub fn setup(
     let mut rng = rand::thread_rng();
     let taken_positions = vec![];
     
-    for _ in 0..5 {
+    for _ in 0..8 {
         let pos = (
             rng.gen_range(0..grid.0.width),
             rng.gen_range(0..grid.0.height)

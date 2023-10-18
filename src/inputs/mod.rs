@@ -21,7 +21,6 @@ pub(crate) fn click_province(
             let pos = grid.0.get_mut(x, y);
 
             if let Some(pos) = pos {
-                
                 if let Some(tile) = &pos.t {
                     sprite_query.get_mut(tile.entity).unwrap().color = Color::rgb(0.1, 0.1, 0.1);
                     sprite_query.get_mut(tile.inner_entity).unwrap().color = Color::rgb(0.1, 0.1, 0.2);
