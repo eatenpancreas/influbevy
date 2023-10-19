@@ -1,5 +1,6 @@
 mod pos_phys;
 mod pos;
+mod tile;
 
 pub use self::pos::*;
 use bevy::math::{Rect};
