@@ -4,7 +4,7 @@ pub use self::turn_press::*;
 
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
-use crate::{Grid, MainCamera, PlayerOwner};
+use crate::{Grid, MainCamera};
 
 
 pub(crate) fn click_province(
@@ -17,7 +17,7 @@ pub(crate) fn click_province(
 ) {
     if buttons.just_pressed(MouseButton::Left) {
         if let Some(cursor) = get_cursor_pos(q_windows, q_camera) {
-            let (x, y) = grid.0.get_pos_at_v2(cursor, 0.0);
+            let (x, y) = grid.0.get_pos_at_v2(cursor);
             let pos = grid.0.get_mut(x, y);
 
             if let Some(pos) = pos {

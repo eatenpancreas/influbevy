@@ -1,13 +1,13 @@
 #[cfg(test)]
 mod tests;
 mod setup;
-mod lib;
 mod owners;
 mod inputs;
+mod engine;
 
 use bevy::prelude::*;
 use bevy::window::{close_on_esc};
-use lib::hex_grid::HexGrid;
+use engine::hex_grid::HexGrid;
 use crate::inputs::turn_press;
 
 #[derive(Resource)]

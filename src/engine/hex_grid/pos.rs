@@ -1,5 +1,3 @@
-use crate::lib::hex_grid::HexGrid;
-
 
 #[derive(Debug)]
 pub struct Pos<T> {
@@ -17,7 +15,7 @@ impl <T> Pos<T> {
         self.t = t;
     }
     
-    pub fn get_neighbors<'a, UT>(&'a self, hg: &'a HexGrid<UT>) -> Vec<&Pos<UT>> {
-        hg.get_neighbours(self.x, self.y)
-    }
+    // pub fn get_neighbours<'a, UT>(&'a self, hg: &'a HexGrid<UT>) -> Vec<&Pos<UT>> {
+    //     hg.get_neighbours(self.x, self.y)
+    // }
 }

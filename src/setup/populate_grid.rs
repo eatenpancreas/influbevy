@@ -3,7 +3,7 @@ use bevy::prelude::*;
 use crate::{Grid, Tile};
 use crate::owners::Owner;
 
-pub(crate) fn populate_grid(
+pub fn populate_grid(
     mut commands: Commands,
     mut grid: ResMut<Grid>,
     asset_server: Res<AssetServer>,

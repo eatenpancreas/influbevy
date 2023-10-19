@@ -28,9 +28,11 @@ pub fn setup(
         
         if taken_positions.contains(&pos) { continue; }
         
-        commands.spawn((
-            Owner { col: random_color(&mut rng), starting_pos: pos, positions: vec![pos] }
-        ));
+        commands.spawn( Owner { 
+            col: random_color(&mut rng), 
+            starting_pos: pos, 
+            positions: vec![pos] 
+        });
     }
 }
 
