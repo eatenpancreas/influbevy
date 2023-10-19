@@ -1758,6 +1758,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "eec1c01eb1de97451ee0d60de7d81cf1e72aabefb021616027f3d1c3ec1c723c"
 
 [[package]]
+name = "gsa_bevy"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "noise",
+ "rand 0.8.5",
+]
+
+[[package]]
 name = "guillotiere"
 version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1854,15 +1863,6 @@ name = "inflections"
 version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a257582fdcde896fd96463bf2d40eefea0580021c0712a0e2b028b60b47a837a"
-
-[[package]]
-name = "influbevy"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "noise",
- "rand 0.8.5",
-]
 
 [[package]]
 name = "inotify"

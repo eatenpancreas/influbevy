@@ -1,15 +1,13 @@
-mod pos_phys;
-mod position;
-mod tile;
+mod world_math;
+pub mod position;
 
-pub use self::position::*;
 use bevy::prelude::*;
-use crate::engine::v2::V2;
+use crate::prelude::*;
 
 const U16_MAX_AS_I32: i32 = u16::MAX as i32;
 
 #[derive(Resource)]
-pub struct HexGridResource(HexGrid);
+pub struct HexGridResource(pub HexGrid);
 
 #[derive(Debug)]
 pub struct HexGrid {

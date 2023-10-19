@@ -1,15 +1,12 @@
-mod turn_press;
-
-pub use self::turn_press::*;
 
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
-use crate::{Grid, MainCamera};
+use crate::prelude::*;
 
 
 pub(crate) fn click_province(
     buttons: Res<Input<MouseButton>>,
-    mut grid: ResMut<Grid>,
+    mut grid: ResMut<HexGridResource>,
     // mut player: ResMut<PlayerOwner>,
     mut sprite_query: Query<&mut Sprite>,
     q_windows: Query<&Window, With<PrimaryWindow>>,
@@ -17,18 +14,18 @@ pub(crate) fn click_province(
 ) {
     if buttons.just_pressed(MouseButton::Left) {
         if let Some(cursor) = get_cursor_pos(q_windows, q_camera) {
-            let (x, y) = grid.0.get_pos_at_v2(cursor);
+            let (x, y) = grid.0.get_v2_at_pos(cursor);
             let pos = grid.0.get_mut(x, y);
 
             if let Some(pos) = pos {
-                if let Some(tile) = &pos.t {
+                if let Some(tile) = &pos.tile {
                     sprite_query.get_mut(tile.entity).unwrap().color = Color::rgb(0.1, 0.1, 0.1);
                     sprite_query.get_mut(tile.inner_entity).unwrap().color = Color::rgb(0.1, 0.1, 0.2);
                 }
             }
 
             for n in grid.0.get_neighbours(x, y) {
-                if let Some(tile) = &n.t {
+                if let Some(tile) = &n.tile {
                     sprite_query.get_mut(tile.entity).unwrap().color = Color::rgb(0.1, 0.1, 0.1);
                     sprite_query.get_mut(tile.inner_entity).unwrap().color = Color::rgb(0.1, 0.1, 0.2);
                 }

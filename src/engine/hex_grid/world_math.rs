@@ -1,18 +1,18 @@
 use bevy::math::{Vec2};
-use crate::engine::hex_grid::{HexGrid};
+use crate::prelude::*;
 
-impl <T> HexGrid<T> {
+impl HexGrid {
     pub fn pos_center(&self, x: u16, y: u16) -> Vec2 {
         self.pos_min(x,y) + self.pos_size() / 2.0
     }
     
     fn _hex_height(&self) -> f32 {
-        self.physical_size.height() / self.height as f32
+        self.physical_size.height() / self.height() as f32
     }
     
     fn _hex_width(&self) -> f32 {
-        (self.physical_size.width() - self.physical_size.width() / self.width as f32 / (1.0 + self.hex_slope_pct * 2.0) / 3.0
-        ) / self.width as f32 / (1.0 - self.hex_slope_pct) 
+        (self.physical_size.width() - self.physical_size.width() / self.width() as f32 / (1.0 + self.hex_slope_pct * 2.0) / 3.0
+        ) / self.width() as f32 / (1.0 - self.hex_slope_pct) 
             
     }
     
@@ -26,14 +26,14 @@ impl <T> HexGrid<T> {
         Vec2::new(fx, fy)
     }
     
-    pub fn get_pos_at_v2(&self, v2: Vec2) -> (u16, u16) {
-        let x = (v2.x - self.physical_size.min.x) / self.physical_size.width() * self.width as f32; 
-        let mut y = (v2.y - self.physical_size.min.y) / self.physical_size.height() * self.height as f32;
+    pub fn get_v2_at_pos(&self, vec: Vec2) -> V2 {
+        let x = (vec.x - self.physical_size.min.x) / self.physical_size.width() * self.width() as f32; 
+        let mut y = (vec.y - self.physical_size.min.y) / self.physical_size.height() * self.height() as f32;
 
         
-        let x = (x.floor() as u16).min(self.width - 1);
+        let x = (x.floor() as u16).min(self.width() - 1);
         if x % 2 == 1 { y -= 0.5; }
-        let y = (y.floor() as u16).min(self.height - 1);
+        let y = (y.floor() as u16).min(self.height() - 1);
         
         (x, y)
     }

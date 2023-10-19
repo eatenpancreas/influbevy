@@ -1,15 +1,15 @@
 use bevy::math::vec3;
 use bevy::prelude::*;
-use crate::{Grid, Tile};
 use crate::owners::Owner;
+use crate::prelude::{HexGridResource, Tile};
 
 pub fn populate_grid(
     mut commands: Commands,
-    mut grid: ResMut<Grid>,
+    mut grid: ResMut<HexGridResource>,
     asset_server: Res<AssetServer>,
     owners: Query<(Entity, &Owner)>
 ) {
-    let (width, height) = grid.0.size_t();
+    let (width, height) = grid.0.size;
     let size = grid.0.pos_size();
     let texture = asset_server.load("sprites/hex/hex1.png");
     let texture2 = asset_server.load("sprites/hex/hex2.png");
@@ -54,7 +54,7 @@ pub fn populate_grid(
             );
 
             let pos = grid.0.get_mut(xx, yy).unwrap();
-            pos.set(Some(Tile {
+            pos.tile = (Some(Tile {
                 entity: commands.spawn(bundle).id(),
                 inner_entity: commands.spawn(bundle2).id(),
                 owner: entity_owner,

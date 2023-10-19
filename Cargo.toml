@@ -1,7 +1,16 @@
 [package]
-name = "influbevy"
+name = "gsa_bevy"
 version = "0.1.0"
 edition = "2021"
+
+[lib]
+name = "engine"
+path = "src/engine/lib.rs"
+
+[[bin]]
+name = "gsa_bevy"
+path = "src/bin.rs"
+
 
 [dependencies]
 bevy = "0.11.3"
