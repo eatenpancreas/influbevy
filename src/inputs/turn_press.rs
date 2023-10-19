@@ -3,7 +3,7 @@ use rand::Rng;
 use rand::rngs::ThreadRng;
 use crate::{Grid};
 use crate::engine::adjacency::{get_adjacent, get_adjacent_single, TileGrid};
-use crate::engine::point::Point;
+use crate::engine::v2::Point;
 use crate::owners::Owner;
 
 pub fn turn_press(

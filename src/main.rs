@@ -10,14 +10,6 @@ use bevy::window::{close_on_esc};
 use engine::hex_grid::HexGrid;
 use crate::inputs::turn_press;
 
-#[derive(Resource)]
-pub struct Grid(HexGrid<Option<Tile>>);
-
-pub struct Tile {
-    pub entity: Entity,
-    pub inner_entity: Entity,
-    pub owner: Option<Entity>,
-}
 
 #[derive(Resource)]
 pub struct PlayerOwner<'p>(Option<&'p Entity>);
@@ -29,7 +21,7 @@ pub struct MainCamera;
 
 fn main() {
     let hg = HexGrid::new_empty(
-        60, 30,
+        (60, 30),
         Rect::new(-550.0, -250.0, 550.0, 250.0),
         0.28571428571428573
     );
