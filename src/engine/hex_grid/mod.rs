@@ -52,6 +52,8 @@ impl HexGrid {
     
     pub fn get_neighbours(&self, v2: V2) -> Vec<&Position> {
         let mut neighbors = vec![];
+        if let None = self.get(v2) { return neighbors }
+        
         neighbors.extend(self.dir(-1, 0, v2));
         neighbors.extend(self.dir(1, 0, v2));
         neighbors.extend(self.dir(0, -1, v2));

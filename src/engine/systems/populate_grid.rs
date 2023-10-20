@@ -53,7 +53,7 @@ pub fn populate_grid(
                 },
             );
 
-            let pos = grid.0.get_mut(xx, yy).unwrap();
+            let pos = grid.0.get_mut((xx, yy)).unwrap();
             pos.tile = (Some(Tile {
                 entity: commands.spawn(bundle).id(),
                 inner_entity: commands.spawn(bundle2).id(),
