@@ -4,7 +4,7 @@ use bevy::window::PrimaryWindow;
 use crate::prelude::*;
 
 
-pub(crate) fn click_province(
+pub(crate) fn province_click(
     buttons: Res<Input<MouseButton>>,
     mut grid: ResMut<HexGridResource>,
     // mut player: ResMut<PlayerOwner>,

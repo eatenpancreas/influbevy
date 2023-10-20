@@ -1,14 +1,10 @@
-
-
-mod populate_grid;
-mod inputs;
-mod turn_press;
-
 use bevy::prelude::*;
 use bevy::window::close_on_esc;
 use rand::Rng;
 use crate::owners::Owner;
-use crate::plugins::tmp::turn_press::turn_press;
+use crate::systems::province_click::province_click;
+use crate::systems::turn_press::turn_press;
+use crate::systems::populate_grid::populate_grid;
 use crate::prelude::{HexGridResource, MainCamera};
 
 pub struct EngineSetupPlugin;
@@ -20,7 +16,7 @@ impl Plugin for EngineSetupPlugin {
             setup_o,
         ))
         .add_systems(Startup, (
-            populate_grid::populate_grid,
+            populate_grid,
         ));
     }
 }
@@ -30,20 +26,20 @@ pub struct EngineUpdatePlugin;
 impl Plugin for EngineUpdatePlugin {
     fn build(&self, app: &mut App) {
         app .add_systems(Update, (
-                inputs::click_province,
-                close_on_esc,
-                turn_press,
-            ));
+            province_click,
+            close_on_esc,
+            turn_press,
+        ));
     }
 }
 
-pub(crate) fn setup(
+fn setup(
     mut commands: Commands,
 ) {
     commands.spawn((Camera2dBundle::default(), MainCamera));
 }
 
-pub fn setup_o(
+fn setup_o(
     mut commands: Commands,
     grid: Res<HexGridResource>,
 ) {

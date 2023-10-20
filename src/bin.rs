@@ -4,8 +4,8 @@ mod tests;
 
 use bevy::prelude::*;
 use engine::plugins::EnginePlugin;
-use engine::plugins::tmp::EngineSetupPlugin;
-use engine::plugins::tmp::EngineUpdatePlugin;
+use engine::plugins::EngineSetupPlugin;
+use engine::plugins::EngineUpdatePlugin;
 
 fn main() {
     App::new()
