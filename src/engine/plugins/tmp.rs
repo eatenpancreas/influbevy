@@ -11,9 +11,9 @@ use crate::owners::Owner;
 use crate::plugins::tmp::turn_press::turn_press;
 use crate::prelude::{HexGridResource, MainCamera};
 
-pub struct TempPlugin;
+pub struct EngineSetupPlugin;
 
-impl Plugin for TempPlugin {
+impl Plugin for EngineSetupPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(PreStartup, (
             setup,
@@ -21,12 +21,19 @@ impl Plugin for TempPlugin {
         ))
         .add_systems(Startup, (
             populate_grid::populate_grid,
-        ))
-        .add_systems(Update, (
-            inputs::click_province, 
-            close_on_esc,
-            turn_press,
         ));
+    }
+}
+
+pub struct EngineUpdatePlugin;
+
+impl Plugin for EngineUpdatePlugin {
+    fn build(&self, app: &mut App) {
+        app .add_systems(Update, (
+                inputs::click_province,
+                close_on_esc,
+                turn_press,
+            ));
     }
 }
 

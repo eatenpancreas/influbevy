@@ -24,7 +24,7 @@ pub fn populate_grid(
             
             
             let color = match owner {
-                None => Color::rgb(0.1, 0.1, 0.1),
+                None => Color::rgb(0.05, 0.05, 0.05),
                 Some(o) => o.col
             };
             
